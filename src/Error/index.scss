@@ -1,0 +1,16 @@
+.manage-error {
+  height: 100vw;
+  position: fixed;
+  width: 100vw;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  background: aliceblue;
+
+  .manage-error-content {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    height: 40%;
+  }
+}

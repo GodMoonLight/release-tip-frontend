@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin"); //installed via npm
 const webpack = require("webpack"); //to access built-in plugins
 
-const root = path.resolve(__dirname,"..");
+const root = path.resolve(__dirname, "..");
 const sourcePath = path.resolve(root, "src");
 const buildPath = path.resolve(root, "../src/main/resources/public");
 
@@ -59,12 +59,43 @@ module.exports = {
             options: {}
           }
         ]
-      }
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: '@svgr/webpack',
+            options: {
+              babel: false,
+              icon: true,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
     ]
   },
   plugins: [
     new webpack.ProgressPlugin(),
-    new HtmlWebpackPlugin({ template: "./src/index.html" }),
+    new HtmlWebpackPlugin({
+      title: 'Release Management',
+      filename: 'index.html',
+      template: path.resolve(sourcePath, 'index.html'),
+      alwaysWriteToDisk: true
+    }),
     new webpack.HotModuleReplacementPlugin(),
   ],
 
@@ -73,8 +104,8 @@ module.exports = {
     cacheDirectory: path.resolve(root, ".temp_cache")
   },
   resolve: {
-    modules: [path.resolve(root, "src"), path.resolve(root, "node_modules"), "node_modules"],
-    extensions: ["*", ".js", ".jsx"]
+    modules: ["node_modules"],
+    extensions: ['.js', '.json', '.jsx', '.css', '.scss'],
   }
 };
 

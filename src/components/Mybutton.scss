@@ -1,0 +1,13 @@
+.manage-button {
+  color: #1890ff;
+  border: 1px solid #1890ff;
+
+  &:hover {
+    background: #1890ff;
+    color: white;
+  }
+}
+
+.ant-btn-primary.manage-button {
+  color: white;
+}
